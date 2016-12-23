@@ -1,6 +1,7 @@
 var util = require('util');
 var alphaChars = require('./alphaChars');
 var numChars = require('./numChars');
+var padend = require('lodash.padend');
 
 function Backpack(io, options){
 
@@ -18,14 +19,14 @@ function Backpack(io, options){
   this.address = options.address || 0x70;
 
   this.io.i2cConfig(0);
-  this.io.i2cWrite(this.address, 0x21); // turn on oscillator
-  this.io.i2cWrite(this.address, 0x81); // disp on
+  this.io.i2cWrite(this.address, 0, [0x21]); // turn on oscillator
+  this.io.i2cWrite(this.address, 0, [0x81]); // disp on
   this.setBrightness(options.brightness || 0xF); // 0x0 to 0xF);
 }
 
 
 Backpack.prototype.setBrightness = function(brightness) {
-    this.io.i2cWrite(this.address, 0xE0 | brightness);
+    this.io.i2cWrite(this.address,0, [0xE0 | brightness]);
 };
 
 Backpack.prototype.clearDisplay = function() {
@@ -39,14 +40,34 @@ function Matrix8x8(io, options){
   Backpack.apply(this, arguments);
 }
 
-
 util.inherits(Matrix8x8, Backpack);
 
-
-Matrix8x8.prototype.drawBitmap = function(data) {
-  //render the thing
+Matrix8x8.prototype.clearDisplay = function() {
+    this.io.i2cWrite(this.address, 0, [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
 };
 
+Matrix8x8.prototype.drawBitmap = function(data) {
+  var splitBits = [];
+  data.forEach(function(i){
+    splitBits.push(i & 0xFF);
+    splitBits.push(i >> 8);
+  });
+  this.io.i2cWrite(0x70, 0, this.rotateBuffer(splitBits));
+};
+
+Matrix8x8.prototype.rotateBuffer = function(buf){
+  var tempBuf = [];
+  buf.forEach( function(value) {
+    //Then shift last bit over if switched on it'll switch on 2^7
+      var rotated = (value >> 1) | (value << 7);
+      //Casting the 16-bit integer to 8-bit
+      var eightBitArray = new Uint8Array([rotated]);
+      //return the 8-bit value
+     tempBuf.push(eightBitArray[0]); 
+  })
+
+  return tempBuf;
+};
 
 
 /*** 8x16 Matrix backpack *********************************/
@@ -61,6 +82,7 @@ util.inherits(Matrix8x16, Backpack);
 
 Matrix8x16.prototype.drawBitmap = function(data) {
   //render the thing
+
 };
 
 
@@ -93,7 +115,15 @@ util.inherits(AlphaNum4, Backpack);
 
 
 AlphaNum4.prototype.writeText = function(str) {
-  //render the thing
+  var desiredBits = padend(str, 4, ' ').substring(0, 4).split('').map(function(c){
+      return alphaChars[c.charCodeAt(0)] || 0;
+  });
+  var output = [];
+  desiredBits.forEach(function(i){
+    output.push(i & 0xFF);
+    output.push(i >> 8);
+  });
+  this.io.i2cWrite(0x70, 0, output);
 };
 
 

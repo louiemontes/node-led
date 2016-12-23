@@ -1,6 +1,6 @@
 {
   "name": "node-led",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "johnny-five compatible lib for LED backpacks",
   "main": "index.js",
   "scripts": {
@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/louiemontes/node-led/issues"
   },
-  "homepage": "https://github.com/louiemontes/node-led#readme"
+  "homepage": "https://github.com/louiemontes/node-led#readme",
+  "dependencies": {
+    "lodash.padend": "^4.6.1"
+  }
 }
