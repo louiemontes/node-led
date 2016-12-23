@@ -2,7 +2,7 @@
 node-led
 ========================
 
-![AlphaNum4](docs/aplhpanum4.jpg)
+![AlphaNum4](docs/alphanum4.jpg)
 
 ## What is this?
 
