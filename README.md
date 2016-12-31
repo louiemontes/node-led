@@ -2,8 +2,6 @@
 node-led
 ========================
 
-![AlphaNum4](docs/alphanum4.jpg)
-
 ## What is this?
 
 This repo is a library compatible with Rick Waldron's [johnny-five](https://github.com/rwaldron/johnny-five) project. It adds support for [Adafruit's LED backpacks](https://learn.adafruit.com/adafruit-led-backpack).
@@ -47,3 +45,51 @@ board.on('ready', function() {
 });
 
 ```
+
+![EightByEightMatrix](docs/eightByEightMatrix.jpg)
+
+### 7 segment example
+
+```javascript
+var five = require('johnny-five'),
+    board = new five.Board(),
+    SevenSegment = require('node-led').SevenSegment;
+
+board.on('ready', function() {
+  console.log('Connected to Arduino, ready.');
+
+  var opts = {
+    address: 0x70
+  };
+
+  var display = new SevenSegment(board, opts);
+
+  display.clearDisplay();
+  display.writeText("3.A:C.E")
+});
+
+```
+![SevenSegment](docs/sevenSegment.jpg)
+
+### 14 segment alphanumeric example
+
+```javascript
+var five = require('johnny-five'),
+    board = new five.Board(),
+    AlphaNum4 = require('node-led').AlphaNum4;
+
+board.on('ready', function() {
+  console.log('Connected to Arduino, ready.');
+
+  var opts = {
+    address: 0x70
+  };
+
+  var display = new AlphaNum4(board, opts);
+  display.clearDisplay();
+  display.writeText("Node");
+
+});
+
+```
+![AlphaNum4](docs/alphanum4.jpg)

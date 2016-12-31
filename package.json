@@ -1,6 +1,6 @@
 {
   "name": "node-led",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "johnny-five compatible lib for LED backpacks",
   "main": "index.js",
   "scripts": {
