@@ -19,14 +19,14 @@ function Backpack(io, options){
   this.address = options.address || 0x70;
 
   this.io.i2cConfig(0);
-  this.io.i2cWrite(this.address, 0, [0x21]); // turn on oscillator
-  this.io.i2cWrite(this.address, 0, [0x81]); // disp on
+  this.io.i2cWrite(this.address, [0x21]); // turn on oscillator
+  this.io.i2cWrite(this.address, [0x81]); // disp on
   this.setBrightness(options.brightness || 0xF); // 0x0 to 0xF);
 }
 
 
 Backpack.prototype.setBrightness = function(brightness) {
-    this.io.i2cWrite(this.address,0, [0xE0 | brightness]);
+    this.io.i2cWrite(this.address, [0xE0 | brightness]);
 };
 
 Backpack.prototype.clearDisplay = function() {
