@@ -48,7 +48,7 @@ board.on('ready', function() {
 
 ![EightByEightMatrix](docs/eightByEightMatrix.jpg)
 
-### 7 segment example
+### 7 segment numeric example
 
 ```javascript
 var five = require('johnny-five'),
