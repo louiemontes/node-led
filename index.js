@@ -144,6 +144,7 @@ SevenSegment.prototype.clearDisplay = function() {
 
 
 SevenSegment.prototype.writeText = function(str) {
+  str = String(str);
   var preOutput = [];
   str = str.toLowerCase();
   var splits = padend(str, 4, ' ').split('');
