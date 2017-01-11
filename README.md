@@ -93,3 +93,8 @@ board.on('ready', function() {
 
 ```
 ![AlphaNum4](docs/alphanum4.jpg)
+
+### TODO:
+- 8x16 matrix
+- 8x8 bicolor matrix
+- bicolor bargraph
