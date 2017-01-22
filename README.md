@@ -2,7 +2,7 @@
 node-led
 ========================
 
-## What is this?
+## What is this repo?
 
 This repo is a library compatible with Rick Waldron's [johnny-five](https://github.com/rwaldron/johnny-five) project. It adds support for [Adafruit's LED backpacks](https://learn.adafruit.com/adafruit-led-backpack).
 
