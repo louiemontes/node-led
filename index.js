@@ -1,7 +1,9 @@
+// required libraries
 var util = require('util');
 var alphaChars = require('./alphaChars');
 var numChars = require('./numChars');
 var padend = require('lodash.padend');
+
 
 function Backpack(io, options){
 
