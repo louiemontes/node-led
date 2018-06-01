@@ -218,16 +218,23 @@ Bargraph24.prototype.drawBitmap = function(rm, gm) {
     rm = rm[0];
   }
   var output = new Array(6);
-  output = output.map(flipByte);
+
   // first bytes
-  output[0] = ((rm >> 20) << 4) + ((rm >> 8) & 0xF);
-  output[1] = ((gm >> 20) << 4) + ((gm >> 8) & 0xF);
+  output[0] = flipByte(((rm >> 20) << 4) + ((rm >> 8) & 0xF));
+  console.log(output[0]);
+  output[1] = flipByte(((gm >> 20) << 4) + ((gm >> 8) & 0xF));
+  console.log(output[1]);
   // second bytes
-  output[2] = (((rm >> 12) & 0xF) << 4) + ((rm >> 4) & 0xF);
-  output[3] = (((gm >> 12) & 0xF) << 4) + ((gm >> 4) & 0xF);
+  output[2] = flipByte((((rm >> 13) & 0xF) << 4) + ((rm >> 4) & 0xF));
+  console.log(output[2]);
+  output[3] = flipByte((((gm >> 13) & 0xF) << 4) + ((gm >> 4) & 0xF));
+  console.log(output[3]);
   // thrid bytes
-  output[4] = (((rm >> 4) & 0xF) << 4) + (rm & 0xF);
-  output[5] = (((gm >> 4) & 0xF) << 4) + (gm & 0xF);
+  output[4] = flipByte((((rm >> 4) & 0xF) << 4) + (rm & 0xF));
+  console.log(output[4]);
+  output[5] = flipByte((((gm >> 4) & 0xF) << 4) + (gm & 0xF));
+  console.log(output[5]);
+  // output = output.map(flipByte);
 
   this.io.i2cWrite(this.address, 0, output);
 };

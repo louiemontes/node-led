@@ -4,7 +4,7 @@
   "description": "johnny-five compatible lib for LED backpacks",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --reporter spec"
   },
   "repository": {
     "type": "git",
@@ -25,5 +25,9 @@
   "homepage": "https://github.com/louiemontes/node-led#readme",
   "dependencies": {
     "lodash.padend": "^4.6.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
   }
 }
